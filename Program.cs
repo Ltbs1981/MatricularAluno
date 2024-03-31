@@ -15,13 +15,13 @@ namespace MatricularAlunos
                 switch (opcao)
                 {
                     case 1:
-                        Console.WriteLine("Registrar um aluno");
+                        RegistrarAluno();
                         break;
                     case 2:
-                        Console.WriteLine("Consultar aluno");
+                        ConsultarAlunos();
                         break;
                     case 3:
-                        Console.WriteLine("Lista de alunos");
+                        ListarAlunos();
                         break;
                     case 4:
                         Console.WriteLine("Obrigado");
@@ -30,8 +30,40 @@ namespace MatricularAlunos
                         Console.WriteLine("Digite uma opção válida");
                         break;
                 }
+            }
+        }
+        static void RegistrarAluno()
+        {
+            Console.WriteLine("Informe o nome do aluno");
+            String nome = Console.ReadLine();
+            Console.WriteLine("Informe a Turma do aluno");
+            string turma = Console.ReadLine();
+            Alunos aluno = new Alunos(nome, turma);
+            Matriculados.AdicionarAluno(aluno);
 
+            Console.WriteLine("Aluno foi matriculado");
+        }
+
+        static void ConsultarAlunos()
+        {
+            Console.WriteLine("Informe o índice do aluno ");
+            int indice = int.Parse(Console.ReadLine());
+
+            Alunos aluno = Matriculados.BuscarAluno(indice);
+            if (aluno != null)
+                Console.WriteLine(aluno);
+            else
+                Console.WriteLine("Aluno não encontrado");
+        }
+
+        static void ListarAlunos()
+        {
+            Console.WriteLine("Lista de alunos");
+            for (int i = 0; i < Matriculados.GetQuantidadeAlunos(); i++)
+            {
+                Alunos aluno = Matriculados.BuscarAluno(i);
+                Console.WriteLine($"Índice: {i}, Id: {aluno.Id}, Nome: {aluno.Nome}, Turma: {aluno.Turma}");
             }
         }
-        }
-            }
+    }
+}
